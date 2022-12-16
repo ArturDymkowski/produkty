@@ -11,8 +11,8 @@
         <form action="" method="get" class="tbl ajax_filter">
             <div class="row search-bar">
                 <div class="col-4">
-                    Słowa kluczowe:<br><input type="text" name="str" class="form-control"
-                                              value="{{ old('str') }}">
+                    Tytuł lub opis:<br><input type="text" name="str" class="form-control"
+                                              value="<?php if (isset($_GET['str']) && $_GET['str'] != '') echo $_GET['str']; ?>">
                 </div>
 
                 <div class="col-2">
@@ -33,7 +33,14 @@
                 </tr>
                 </thead>
                 <tbody>
-
+                    @foreach($products as $product)
+                        <tr>
+                            <td>{{ $product->id }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->description }}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
 
