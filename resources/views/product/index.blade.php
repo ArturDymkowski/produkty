@@ -2,6 +2,11 @@
 @section('content')
 
     <div class="container mt-3">
+
+        @auth
+            Jesteś zalogowany jako {{ Auth::user()->email }} [<a href="{{ route('logout') }}">Wyloguj się</a>]
+        @endauth
+
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
