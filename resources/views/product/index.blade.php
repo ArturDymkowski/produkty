@@ -3,15 +3,15 @@
 
     <div class="container mt-3">
 
-        @auth
-            Jesteś zalogowany jako {{ Auth::user()->email }} [<a href="{{ route('logout') }}">Wyloguj się</a>]
-        @endauth
-
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
+
+        @auth
+           <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Dodaj produkt</a>
+        @endauth
 
         <form action="" method="get" class="tbl ajax_filter">
             <div class="row search-bar">
@@ -43,7 +43,15 @@
                             <td>{{ $product->id }}</td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->description }}</td>
-                            <td></td>
+                            <td>
+                                <a href="{{ route('products.show', ['product' => $product]) }}">Wyświetl</a>
+                                @auth
+                                    <br>
+                                    <a class="text-success" href="{{ route('products.edit', ['product' => $product]) }}">Edycja</a>
+                                    <br>
+                                    <a href="{{ route('products.delete', ['product' => $product]) }}" class="text-danger" onclick="return confirm('Jesteś pewien ?');">Usuń</a>
+                                @endauth
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

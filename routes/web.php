@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return redirect()->route('products.index');
+});
+
 // Auth
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -22,8 +26,20 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/', function () {
-    return redirect()->route('products.index');
+
+
+// Product
+Route::group(['prefix' => 'products', 'as' => 'products'], function(){
+
+    Route::middleware(['auth'])->group(function(){
+        Route::any('/create', [ProductController::class, 'create'])->name('.create');
+        Route::any('/{product}/edit', [ProductController::class, 'edit'])->name('.edit');
+        Route::get('/{product}/delete', [ProductController::class, 'delete'])->name('.delete');
+    });
+
+    Route::get('/', [ProductController::class, 'index'])->name('.index');
+    Route::get('/{product}', [ProductController::class, 'show'])->name('.show');
 });
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+

@@ -7,6 +7,12 @@
         @include('shared.head')
     </head>
     <body>
+
+    @auth
+        Jesteś zalogowany jako {{ Auth::user()->email }} [<a href="{{ route('logout') }}">Wyloguj się</a>]
+    @endauth
+
         @yield('content')
+
     </body>
 </html>
