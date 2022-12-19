@@ -1,14 +1,6 @@
 @extends('welcome')
 @section('content')
 
-    <div class="container mt-3">
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
         @auth
            <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Dodaj produkt</a>
         @endauth
@@ -58,7 +50,6 @@
             </table>
 
         </div>
-    </div>
 
     <script>
         $(document).ready(function () {

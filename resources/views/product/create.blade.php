@@ -1,6 +1,5 @@
 @extends('welcome')
 @section('content')
-    <div class="container">
         <div class="row">
 
             <form method="post">
@@ -19,6 +18,5 @@
 
         </div>
         <a href="{{ route('products.index') }}" class="mt-5">Wróć</a>
-    </div>
 
 @endsection

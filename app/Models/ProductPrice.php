@@ -10,4 +10,9 @@ class ProductPrice extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'products_prices';
+
+    protected $fillable = [
+        'product_id',
+        'price'
+    ];
 }

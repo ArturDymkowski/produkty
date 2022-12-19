@@ -1,6 +1,5 @@
 @extends('welcome')
 @section('content')
-    <div class="container">
         <div class="row">
             <h3>{{ $product->name }}</h3>
             <p>id: {{ $product->id }}</p>
@@ -16,7 +15,5 @@
         </div>
 
         <a href="{{ route('products.index') }}" class="mt-5">Wróć</a>
-
-    </div>
 
 @endsection

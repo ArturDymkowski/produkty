@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,6 +29,26 @@ class ProductController extends Controller
     }
 
     public function edit(Product $product, Request $request) {
+
+        if ($request->delete) {
+            $product_price = ProductPrice::where('id',$request->delete)->get()->first();
+            $product_price->delete();
+
+            return back()->with('success','Cena usunięta');
+        }
+
+        if ($request->product_price) {
+            if (is_numeric($request->product_price)) {
+                ProductPrice::create([
+                    'product_id' => $product->id,
+                    'price' => $request->product_price
+                ]);
+                return back()->with('success','Cena dodana');
+            }
+
+            return back()->with('error','Cena musi być liczbą');
+        }
+
         if ($request->action == 'save') {
             $product->name = $request->name;
             $product->description = $request->description;
