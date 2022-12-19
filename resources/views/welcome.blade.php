@@ -9,15 +9,35 @@
     <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                @auth
-                    Jesteś zalogowany jako {{ Auth::user()->email }} [<a href="{{ route('logout') }}">Wyloguj się</a>]
-                @endauth
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ route('products.index') }}">Produkty</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                @if(Auth::check())
+                    <div class="row">
+                        <div class="col-12">
+                            Jesteś zalogowany jako {{ Auth::user()->email }} [<a href="{{ route('logout') }}">Wyloguj się</a>]
+                        </div>
+                    </div>
+
+                @else
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">Logowanie</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">Rejestracja</a>
+                        </li>
+                    </ul>
+                @endif
             </div>
-
-        </div>
-
+        </nav>
         <div class="row">
             @if (session('success'))
                 <div class="alert alert-success">
